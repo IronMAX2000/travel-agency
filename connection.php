@@ -9,11 +9,11 @@ if (isset($_ENV['CLEARDB_DATABASE_URL'])) {
       public $table = 'client';
       function init() {
        parent::init();
-       $this->addField('name',['caption'=>'имя']);
-        $this->addField('surname');
-        $this->addField('age');
-        $this->addField('gmail');
-        $this->hasOne('City', new City)->addTitle();
+       $this->addField('name',['caption'=>'имя','required'=>TRUE]);
+        $this->addField('surname',['required'=>TRUE]);
+        $this->addField('age',['required'=>TRUE]);
+        $this->addField('gmail',['required'=>TRUE]);
+        $this->hasOne('city_id', new City)->addTitle();
     }
   }
   class Country extends \atk4\data\Model {
@@ -32,6 +32,6 @@ class City extends \atk4\data\Model {
    parent::init();
    $this->addField('name',['caption'=>'город']);
     $this->hasMany('Client', new Client);
-    $this->hasOne('Country', new Country)->addTitle();
+    $this->hasOne('country_id', new Country)->addTitle();
 }
 }

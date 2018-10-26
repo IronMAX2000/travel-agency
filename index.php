@@ -2,12 +2,13 @@
 require 'connection.php';
 $app = new \atk4\ui\App('AirMaxik');
 $app->initLayout('Centered');
+ $image='http://russia-karta.ru/russia-map-10.jpg';
+ $app->add(['Image',$image]);
 
-$CRUD= $app->add(['CRUD']);
-$CRUD->setModel(new Client($db));
 
-$CRUD= $app->add(['CRUD']);
-$CRUD->setModel(new Contry($db));
+$country = new Country($db);
+$country->setOrder('name');
+$table = $app->add('Grid');
+$table->setModel($country);
 
-$CRUD= $app->add(['CRUD']);
-$CRUD->setModel(new City($db));
+$table->addDecorator('name', new \atk4\ui\TableColumn\Link('fast.php?id={$id}'));
